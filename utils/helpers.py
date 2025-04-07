@@ -18,3 +18,10 @@ def get_response_length(url):
 
 def is_payload_reflected(response, payload):
     return payload in response.text
+    
+def load_payloads_from_file(file_path):
+    try:
+        with open(file_path, "r") as f:
+            return [line.strip() for line in f if line.strip()]
+    except:
+        return []
