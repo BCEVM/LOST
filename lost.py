@@ -3,6 +3,10 @@
 import argparse
 from core import scanner, replayer, updater, crawler, dorker
 from utils.colors import banner, info
+from utils.colors import Colors, banner
+
+banner()
+print(f"{Colors.OKBLUE}[+] Starting scan...{Colors.ENDC}")
 
 def main():
     banner()
