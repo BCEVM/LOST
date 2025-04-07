@@ -49,7 +49,16 @@ def main():
     if args.scan and args.url:
         scanner.scan_vulns(args.url, stealth=args.stealth)
         return
-
+    parser.add_argument('--ai', help='Prompt untuk AI (HuggingFace)', required=False)
+    if args.ai:
+    from ai.engine import query_hf
+    result = query_hf(args.ai)
+    if result:
+        print(f"\n{Colors.OKGREEN}[AI Response]:{Colors.ENDC}\n{result}")
+    else:
+        print(f"{Colors.FAIL}[x] Gagal mendapatkan respon dari AI.{Colors.ENDC}")
+    sys.exit()
+    
     parser.print_help()
 
 if __name__ == "__main__":
