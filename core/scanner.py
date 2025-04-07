@@ -4,6 +4,21 @@ import requests
 from utils.colors import Colors
 from utils.helpers import get_status_code, get_response_length, is_payload_reflected
 from utils.helpers import load_payloads_from_file
+import requests
+from utils.colors import Colors
+
+def scan_target(url, payload_list):
+    for payload in payload_list:
+        test_url = url.replace("FUZZ", payload.strip())
+        try:
+            res = requests.get(test_url, timeout=5)
+            print(f"{Colors.OKBLUE}[+] Replaying to: {test_url}{Colors.ENDC}")
+            print(f"{Colors.OKCYAN}[+] Status Code: {res.status_code}")
+            print(f"[+] Response Length: {len(res.text)}{Colors.ENDC}")
+            if payload.strip() in res.text:
+                print(f"{Colors.WARNING}[!] Payload terdeteksi di response. [MUNGKIN VULN]{Colors.ENDC}")
+        except Exception as e:
+            print(f"{Colors.FAIL}[x] Error saat request: {e}{Colors.ENDC}")
 
 PAYLOADS = {
     "XSS": load_payloads_from_file("payloads/xss.txt"),
