@@ -8,6 +8,13 @@ from utils.colors import Colors, banner
 banner()
 print(f"{Colors.OKBLUE}[+] Starting scan...{Colors.ENDC}")
 
+def load_payloads_from_file(file_path):
+    try:
+        with open(file_path, "r") as f:
+            return [line.strip() for line in f if line.strip()]
+    except:
+        return []
+        
 def main():
     banner()
 
