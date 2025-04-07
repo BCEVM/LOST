@@ -3,6 +3,13 @@
 import requests
 from utils.colors import Colors
 from utils.helpers import get_status_code, get_response_length, is_payload_reflected
+from utils.helpers import load_payloads_from_file
+
+PAYLOADS = {
+    "XSS": load_payloads_from_file("payloads/xss.txt"),
+    "SQLi": load_payloads_from_file("payloads/sqli.txt"),
+    "LFI": load_payloads_from_file("payloads/lfi.txt")
+}
 
 # Payload dasar (nanti bisa ditaruh di file atau modul payload terpisah)
 PAYLOADS = {
