@@ -1,0 +1,10 @@
+# Jangan upload file rahasia
+.env
+
+# Cache Python
+__pycache__/
+*.pyc
+
+# VSCode atau editor lainnya
+.vscode/
+.idea/
