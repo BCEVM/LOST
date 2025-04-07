@@ -4,6 +4,15 @@ import argparse
 from core import scanner, replayer, updater, crawler, dorker
 from utils.colors import banner, info
 from utils.colors import Colors, banner
+from core.scanner import scan_target
+from utils.colors import Colors, banner
+
+banner()
+print(f"{Colors.OKBLUE}[+] Starting scan...{Colors.ENDC}")
+
+url = "http://target.com/page.php?id=FUZZ"
+payloads = open("payloads/xss.txt", "r").readlines()
+scan_target(url, payloads)
 
 banner()
 print(f"{Colors.OKBLUE}[+] Starting scan...{Colors.ENDC}")
