@@ -6,6 +6,31 @@ from utils.helpers import get_status_code, get_response_length, is_payload_refle
 from utils.helpers import load_payloads_from_file
 import requests
 from utils.colors import Colors
+import os
+import requests
+from utils.colors import Colors
+
+def load_payloads(folder="payloads"):
+    payloads = []
+    for filename in os.listdir(folder):
+        path = os.path.join(folder, filename)
+        if os.path.isfile(path):
+            with open(path, "r") as f:
+                payloads.extend([line.strip() for line in f if line.strip()])
+    return payloads
+
+def scan_url_with_payloads(url, payloads):
+    for payload in payloads:
+        target = url.replace("FUZZ", payload)
+        try:
+            res = requests.get(target, timeout=5)
+            print(f"{Colors.OKBLUE}[+] Testing: {target}{Colors.ENDC}")
+            if payload in res.text:
+                print(f"{Colors.OKGREEN}[VULNERABLE] Payload: {payload}{Colors.ENDC}")
+            else:
+                print(f"{Colors.FAIL}[NOT VULNERABLE] Payload: {payload}{Colors.ENDC}")
+        except Exception as e:
+            print(f"{Colors.FAIL}[x] Error: {e}{Colors.ENDC}")
 
 def scan_target(url, payload_list):
     for payload in payload_list:
